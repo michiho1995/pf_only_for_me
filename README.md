@@ -22,12 +22,11 @@
 ネイルをされている全ての女性、ネイルサロン　
 
 ### 主な利用シーン
-ネイルサロンにいかれる前に技術者に見せるよう
-セルフネイラーさんの参考に
-お店側は自分のお店のアピール
+- ネイルサロンにいかれる前に技術者に見せるよう
+- セルフネイラーさんの参考に
+- お店側は自分のお店のアピール
 
 ## 設計書
-機能一覧：https://docs.google.com/document/d/1PUUZu29mDn6G-eotu1oqi0WL0bBeUSNAWNEFTaklgLI/edit
 
 ### 機能一覧
 チャレンジ要素：https://docs.google.com/spreadsheets/d/1snF6MRlcgh3LfDy1lKBiUq1L6Bgz6mHbhgHdnH80rSM/edit#gid=0
