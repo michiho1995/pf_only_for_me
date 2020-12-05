@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nail</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <div class="row">
+        <nav class="nav navbar-nav navbar-left">
+          <span class="navbar-brand" >Only for me</span>
+        </nav>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>
+              <li><%= link_to "Home", user_path(current_user.id), class:"glyphicon glyphicon-home home" %></li>
+              <li><%= link_to 'Users', users_path, class:"glyphicon glyphicon-user users" %></li>
+              <li><%= link_to 'Nails',  nails_path, class:"glyphicon glyphicon-book books" %></li>
+              <li><%= link_to "logout", destroy_user_session_path, method: :delete, class:"glyphicon glyphicon-log-out logout" %></li>
+            <% else %>
+              <li><%= link_to "Home", root_path, class:"glyphicon glyphicon-home home" %></li>
+              <li><%= link_to "About",  home_about_path, class:"glyphicon glyphicon-link about" %></li>
+              <li><%= link_to "Sign up", new_user_registration_path, class:"glyphicon glyphicon-edit sign_up" %></li>
+              <li><%= link_to "login",  new_user_session_path, class:"glyphicon glyphicon-log-in sign_in" %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <body>
+    <%= yield %>
+  </body>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-3 col-xs-offset-9">
+          <p>CopyRight Michiho.enomoto</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</html>
