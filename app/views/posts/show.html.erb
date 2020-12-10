@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+<h2>タイトル</h2>
+<p><%= @post.title %></p><br>
+<p><%= attachment_image_tag @post, :image, :fill, 300, 300, format: 'jpeg' %></p>
+<h2>本文</h2>
+<p><%= @post.body %></p>
+<div style="background-color:<%#= @post.color %>"></div>
+<%= link_to "編集", edit_post_path(@post) %>
+<%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+
+</div>
+</div>

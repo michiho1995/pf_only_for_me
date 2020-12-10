@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+<h2>新規投稿</h2>
+
+<%= form_with model: @post, url:'/posts', local:true do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @post.errors.count %>件のエラーが発生しました。</h2>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h4>タイトル</h4>
+  <%= f.text_field :title %>
+  <%= f.attachment_field :image %>
+
+  <H4>本文</H4>
+  <!--ネイルのカラー選択-->
+  <%= f.check_box :color %>
+  <%= f.color_field :color %>
+<!--  <input type="checkbox" name="color" value="red">赤-->
+<!--<input type="checkbox" name="course" value="bule">青-->
+<!--<input type="checkbox" name="course" value="php">緑-->
+<!--<input type="checkbox" name="course" value="seo">-->
+<!--<input type="checkbox" name="course" value="others">その他-->
+  <%= f.text_area :body %>
+  <%= f.submit '投稿' %>
+<% end %>
+
+</div>
+</div>
