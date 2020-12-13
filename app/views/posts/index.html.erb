@@ -2,10 +2,69 @@
   <div class="row">
 <h1>投稿一覧</h1>
 <% @posts.each do |post| %>
-  <p>タイトル</p>
-  <%= link_to post.title, posts_path(post.id) %>
-  <%= attachment_image_tag post, :image, :fill, 100, 100, format: 'jpeg' %>
-  <%= post.body %>
+  <!--<p>タイトル</p>-->
+  <%#= link_to post.title, posts_path(post.id) %>
+  <%#= link_to(post.user.user_name, user_path(post.user_id)) %>
+  <p>
+<%= attachment_image_tag post.user, :profile_image, :fill, 40, 40,  fallback: "no_image.jpg",size: "40x40" %>
+ <%= link_to post.user.name, user_path(post.user_id) %>
+  <p>
+    <% if post.post_images.present? %>
+  <% post.post_images.each do |image| %>
+    <%= attachment_image_tag image, :image, :fill, 200, 200 %>
+  <% end %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: '200x200' %>
+<% end %>
+
+</p>
+
+<p>
+ <%= post.body %>
+</p>
+
+  使用カラー<br>
+  <% if post.red == 1 %>
+  赤
+  <% end %>
+  <% if post.blue == 1 %>
+  青
+  <% end %>
+  <% if post.green == 1 %>
+  緑
+  <% end %>
+  <% if post.pink == 1 %>
+  ピンク
+  <% end %>
+  <% if post.white == 1 %>
+  白
+  <% end %>
+  <% if post.yellow == 1 %>
+  黄
+  <% end %>
+  <% if post.gold == 1 %>
+  ゴールド
+  <% end %>
+  <% if post.silver == 1 %>
+  シルバー
+  <% end %>
+  <% if post.black == 1 %>
+　黒
+  <% end %>
+  <% if post.clear == 1 %>
+  クリア
+  <% end %>
+
+</p>
+
+<ul class="inline-meta">
+  <li>By
+    <%= post.user.name %>
+  </li>
+  <li>
+    <%= link_to "コメント数#{post.post_comments.count} ", post_path(post.id) %>
+  </li>
+</ul>
 <% end %>
 </div>
 </div>

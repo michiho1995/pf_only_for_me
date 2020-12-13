@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     registrations: 'devise/registrations' # 登録
   }
   root 'posts#index'
+  resources :post, only: [:new, :create, :index, :show] do
+    resources :post_comments, only: [:create, :destroy]
+  end
 
   devise_scope :user do
     get 'sign_in', to: 'users/sessions#new'

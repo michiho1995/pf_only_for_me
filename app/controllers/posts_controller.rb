@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post_comment = Post_comment.new
   end
 
   def new
@@ -32,15 +33,13 @@ class PostsController < ApplicationController
       flash[:notice] = '投稿しました.'
         redirect_to post_path(@post.id)
     else
-      @user = current_user
-      @posts = Post.all
-        render 'index'
+        render 'new'
     end
 
   end
 
   def update
-    @post = Post.find(post_params[:id])
+    @post = Post.find(params[:id])
     if @post.update(post_params)
       flash[:notice] = '更新しました'
       redirect_to post_path(@post.id)
@@ -51,9 +50,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(post_params[:id])
+    @post = Post.find(params[:id])
     @post.destroy
-    redirect_to post_path
+    redirect_to user_path(current_user)
   end
 
   private
@@ -63,7 +62,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :image, :introduction)
+    params.require(:post).permit(:title, :body, :introduction, :red, :blue, :green, :pink, :white, :yellow, :gold, :silver, :black, :clear, post_images_images: [] )
   end
 
 end

@@ -13,22 +13,29 @@
       </ul>
     </div>
   <% end %>
-  <h4>タイトル</h4>
-  <%= f.text_field :title %>
-  <%= f.attachment_field :image %>
-
+  <!--<h4>タイトル</h4>-->
+  <%#= f.text_field :title %>
+　<!--複数画像投稿-->
+  <%= f.attachment_field :post_images_images, multiple: true %>
   <H4>本文</H4>
-  <!--ネイルのカラー選択-->
-  <%= f.check_box :color %>
-  <%= f.color_field :color %>
-<!--  <input type="checkbox" name="color" value="red">赤-->
-<!--<input type="checkbox" name="course" value="bule">青-->
-<!--<input type="checkbox" name="course" value="php">緑-->
-<!--<input type="checkbox" name="course" value="seo">-->
-<!--<input type="checkbox" name="course" value="others">その他-->
   <%= f.text_area :body %>
+  <h4>使用カラー</h4>
+  <%= f.check_box :red %>赤
+  <%= f.check_box :blue %>青
+  <%= f.check_box :green %>緑
+  <%= f.check_box :pink %>ピンク
+  <%= f.check_box :white %>白
+  <%= f.check_box :yellow %>黄
+  <%= f.check_box :gold %>ゴールド
+  <%= f.check_box :silver %>シルバー
+  <%= f.check_box :black %>黒
+  <%= f.check_box :clear %>クリア
+
   <%= f.submit '投稿' %>
 <% end %>
 
 </div>
 </div>
+<script>
+  // alert('test')
+</script>

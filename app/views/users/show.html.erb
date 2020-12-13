@@ -17,10 +17,10 @@
         <tbody>
            <%= attachment_image_tag @user, :profile_image, :fill, 60, 60,  fallback: "no_image.jpg",size: "100x100" %>
              <tr>
-              <th class="profile-name">名前      <%= @user.name %></th>          <!--@user → user-->
+              <th class="profile-name">名前      <%= @user.name %></th>
              </tr>
              <tr>
-              <th class="profile-introduction">      <%= @user.introduction %></th>  <!--@user → user-->
+              <th class="profile-introduction">      <%= @user.introduction %></th>
              </tr>
         </tbody>
    </table>
@@ -37,9 +37,9 @@
         <tbody>
           <% @posts.each do |post| %>
               <tr>
-                <td><%= link_to attachment_image_tag(post, :image, :fill, 100, 100), post_path(post.id) %></td>
-                <td><%= link_to post.title, post_path(post) %></td>
-                <td><%= post.body %></td>
+                <% post.post_images.each do |post_image| %>
+                <%= link_to attachment_image_tag(post_image, :image, :fill, 100, 100), post_path(post)%>
+                <% end %>
               </tr>
 
           <% end %>
