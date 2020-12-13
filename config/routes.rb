@@ -6,9 +6,10 @@ Rails.application.routes.draw do
     sessions: 'devise/sessions',  # ログインの持続
     registrations: 'devise/registrations' # 登録
   }
-  root 'posts#index'
-  resources :post, only: [:new, :create, :index, :show] do
+  resources :posts do
+    resource :favorite, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy]
+    resource :bookmark, only: [:create, :destroy]
   end
 
   devise_scope :user do
@@ -16,6 +17,11 @@ Rails.application.routes.draw do
     get 'sign_out', to: 'users/sessions#destroy'
   end
 
-  resources :users
-  resources :posts
+  resources :users do
+    member do
+     get :following, :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
+  
 end

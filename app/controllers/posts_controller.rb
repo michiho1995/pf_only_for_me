@@ -3,12 +3,13 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).reverse_order
   end
 
   def show
     @post = Post.find(params[:id])
-    @post_comment = Post_comment.new
+    @post_comment = PostComment.new
+    @user = User.find(params[:id])
   end
 
   def new
@@ -61,8 +62,16 @@ class PostsController < ApplicationController
     @user = User.find([:id])
   end
 
+  def bookmarks
+    @posts = current_user.bookmark_posts.includes(:user).recent
+  end
+
   def post_params
     params.require(:post).permit(:title, :body, :introduction, :red, :blue, :green, :pink, :white, :yellow, :gold, :silver, :black, :clear, post_images_images: [] )
+  end
+
+  def user_params
+    params.require(:user).permit(:profile_image, :name, :introduction)
   end
 
 end

@@ -1,103 +1,128 @@
 <div class="container">
   <div class="row">
-      <h1>詳細</h1>
-<!--<h2>タイトル</h2>-->
-<p><%#= @post.title %></p><br>
+    <h1>詳細</h1>
+    <br>
+    <br>
+      <p>
+        <!-- 投稿したuserの情報-->
+        <%= attachment_image_tag @post.user, :profile_image, :fill, 40, 40,  fallback: "no_image.jpg",size: "40x40" %>
+        <%= link_to @post.user.name, user_path(@post.user_id) %>
 
-<!--画像表示-->
-<p>
-<% if @post.post_images.present? %>
-  <% @post.post_images.each do |image| %>
-    <%= attachment_image_tag image, :image, :fill, 200, 200 %>
-  <% end %>
-<% else %>
-    <%= image_tag 'no_image.jpg', size: '200x200' %>
-<% end %>
-</p>
-<h2>本文</h2>
-<p><%= @post.body %></p>
-<h3>使用カラー</h3>
-<p>
-    <% if @post.red == 1 %>
-  赤
-  <% end %>
-  <% if @post.blue == 1 %>
-  青
-  <% end %>
-  <% if @post.green == 1 %>
-  緑
-  <% end %>
-  <% if @post.pink == 1 %>
-  ピンク
-  <% end %>
-  <% if @post.white == 1 %>
-  白
-  <% end %>
-  <% if @post.yellow == 1 %>
-  黄
-  <% end %>
-  <% if @post.gold == 1 %>
-  ゴールド
-  <% end %>
-  <% if @post.silver == 1 %>
-  シルバー
-  <% end %>
-  <% if @post.black == 1 %>
-  黒
-  <% end %>
-  <% if @post.clear == 1 %>
-  クリア
-  <% end %>
-</p>
-
-<li>
-  <i class="fa fa-comment"></i>
-  <a href="#comments"><%= @post.post_comments.count %></a>
-</li>
-
-
-
-<div class="comment-list bt style-2" id="comments">
-  <div class="float-wrapper">
-    <h2 class="comment-count"><%= @post.post_comments.count %>件コメント</h2>
-  </div>
-
-<ol>
-  <% @post.post_comments.each do |post_comment| %>
-    <li class="comment">
-      <div class="comment-body bb">
-        <div class="comment-avatar">
-          <div class="avatar">
-            <%= image_tag('sample-author1.jpg', style: "width: 60px; height: 60px;") %>
+      </p>
+    <br>
+      <%= link_to "編集", edit_post_path(@post) %>
+      |
+      <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+      <!--画像表示-->
+      <p>
+        <% if @post.post_images.present? %>
+          <% @post.post_images.each do |image| %>
+            <%= attachment_image_tag image, :image, :fill, 200, 200 %>
+          <% end %>
+        <% else %>
+            <%= image_tag 'no_image.jpg', size: '200x200' %>
+        <% end %>
+      </p>
+      <br>
+      <p><h4>本文：<%= @post.body %></h4></p>
+      <br>
+      <p>
+        <h4>使用カラー：
+          <% if @post.red == 1 %>
+            赤
+          <% end %>
+          <% if @post.blue == 1 %>
+            青
+          <% end %>
+          <% if @post.green == 1 %>
+            緑
+          <% end %>
+          <% if @post.pink == 1 %>
+            ピンク
+          <% end %>
+          <% if @post.white == 1 %>
+            白
+          <% end %>
+          <% if @post.yellow == 1 %>
+            黄
+          <% end %>
+          <% if @post.gold == 1 %>
+            ゴールド
+          <% end %>
+          <% if @post.silver == 1 %>
+            シルバー
+          <% end %>
+          <% if @post.black == 1 %>
+            黒
+          <% end %>
+          <% if @post.clear == 1 %>
+            クリア
+          <% end %>
+        </h4>
+      </p>
+      <br>
+      <p>
+        <!--いいね機能-->
+        <% if @post.favorited_by?(current_user) %>
+          <%= link_to post_favorite_path(@post), method: :delete, remote: true do %>
+            <i class="glyphicon glyphicon-heart" style="color: red;"></i>
+            <%= @post.favorites.count %>
+          <% end %>
+        <% else %>
+          <%= link_to post_favorite_path(@post), method: :post, remote: true do %>
+            <i class="glyphicon glyphicon-heart-empty"></i>
+            <%= @post.favorites.count %>
+          <% end %>
+        <% end %>
+        <!--コメント数-->
+        <i class="glyphicon glyphicon-comment"></i>
+        <a href="#comments"><%= @post.post_comments.count %></a>
+        <div class="comment-list bt style-2" id="comments">
+          <div class="float-wrapper">
+            <h3>コメント一覧</h3>
           </div>
+          <ol>
+            <% @post.post_comments.each do |post_comment| %>
+              <li class="comment">
+                <div class="comment-body bb">
+                  <div class="comment-avatar">
+                    <div class="avatar">
+                      <%= attachment_image_tag post_comment.user, :profile_image, :fill, 40, 40,  fallback: "no_image.jpg",size: "40x40" %>
+                    </div>
+                  </div>
+                  <div class="comment-text">
+                    <div class="comment-author clearfix">
+                      <a href="#" class="link-author"><%= post_comment.user.name %></a>
+                      <span class="comment-meta">
+                        <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
+                      </span>
+                    </div>
+                    <h4 class="comment-entry"><%= post_comment.comment %></h4>
+                    <% if post_comment.user == current_user %>
+                      <div>
+                        <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, class: "glyphicon glyphicon-trash pull-right" %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ol>
         </div>
-        <div class="comment-text">
-          <div class="comment-author clearfix">
-            <a href="#" class="link-author"><%= post_comment.user.name %></a>
-            <span class="comment-meta">
-              <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
-            </span>
+      </p>
+      <br>
+      <p>
+        <!--コメント記入-->
+        <%= form_with(model:[@post, @post_comment], local: true) do |f| %>
+          <div class="row">
+            <div class="col-sm-8">
+              <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+            </div>
           </div>
-          <div class="comment-entry"><%= post_comment.comment %></div>
-        </div>
-      </div>
-    </li>
-  <% end %>
-</ol>
-
-<!-- <form class="mt-20"> -->
-<%= form_with(model:[@post, @post_comment], local: true) do |f| %>
-  <div class="row">
-    <div class="col-sm-12">
-      <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
-    </div>
-  </div>
-  <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-<% end %>
-<!-- </form> -->
-
-<%= link_to "編集", edit_post_path(@post) %>
-<%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+          <%= f.submit "送信する" %>
+        <% end %>
+      </p>
+      <br>
 
 </div>
 </div>

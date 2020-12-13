@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   before_action :authenticate_user! # ログインしているユーザーのみ
 
   def index
@@ -11,11 +12,34 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @post = Post.new
     @posts = @user.posts
+    @bookmarks = @user.bookmarks
   end
 
   def edit
     @user = User.find(params[:id])
-    redirect_to user_path(current_user.id) if @user.id != current_user.id
+    if @user.id != current_user.id
+      redirect_to user_path(current_user.id)
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+     if  @user.update(user_params)
+       flash[:notice] = 'You have updated successfully.'
+         redirect_to user_path(@user.id)
+     else
+        render "edit"
+     end
+  end
+
+  def following
+    @user  = User.find(params[:id])
+    @users = @user.followings
+  end
+
+  def followers
+    @user  = User.find(params[:id])
+    @users = @user.followers
   end
 
   private

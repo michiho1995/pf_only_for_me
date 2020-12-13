@@ -1,0 +1,14 @@
+<% unless current_user == user %> 
+  <div id="follow_form">
+  <% if current_user.following?(user) %>　
+    <%= render 'relationships/unfollow',user: user %>
+  <% else %>
+    <%= render 'relationships/follow',user: user %>
+  <% end %>
+  </div>
+<% end %>
+
+<!--自分じゃないユーザー-->
+<!--ログインしているユーザーがフォローしていたらアンフォローボタンを出す-->
+<!--そうじゃない時フォローボタンを出す-->
+　
