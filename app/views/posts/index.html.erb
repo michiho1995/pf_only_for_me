@@ -77,21 +77,23 @@
           <% end %>
         </p>
         <p>
-          <!--いいね機能-->
-            <% if post.favorited_by?(current_user) %>
-              <%= link_to post_favorite_path(post.id), method: :delete, remote: true do %>
-                <i class="glyphicon glyphicon-heart", style='color: red;'></i>
-                <%= post.favorites.count %>
-              <% end %>
-            <% else %>
-              <%= link_to post_favorite_path(post.id), method: :post, remote: true  do %>
-                <i class="glyphicon glyphicon-heart-empty"></i>
-                <%= post.favorites.count %>
-              <% end %>
-            <% end %>
+          タグリスト：
+          <% @tag_list.each do |list| %>
+            <span>
+              <%= link_to list.tag_name, tag_posts_path(tag_id: list.id) %>
+              <%= "(#{list.posts.count})" %>
+            </span>
+          <% end %>
+        </P>
+        <p>
+          <!--いいね機能 非同期-->
+            <div id='like-button_<%= post.id %>'>
+              <%= render 'favorites/like-button', post: post %>
+            </div>
           <!--コメント数-->
-          <i class="glyphicon glyphicon-comment"></i>
-          <%= link_to "コメント数#{post.post_comments.count} ", post_path(post.id) %>
+          <p id='comments_area_<%= @post.id %>', class="glyphicon glyphicon-comment">
+            <%= render 'post_comments/index', post: post %>
+          </p>
         </p>
       <% end %>
       <!--カミナリ機能-->

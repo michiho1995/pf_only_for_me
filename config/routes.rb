@@ -23,5 +23,13 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: [:create, :destroy]
-  
+
+  #タグによって絞り込んだ投稿を表示するアクションへのルーティング
+  resources :tags do
+    get 'posts'
+  end
+
+  get 'search/index'
+  get 'search/search'
+
 end

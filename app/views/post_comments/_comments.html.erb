@@ -1,0 +1,28 @@
+<ol>
+  <% post.post_comments.each do |post_comment| %>
+    <li class="comment">
+      <div class="comment-body bb">
+        <div class="comment-avatar">
+          <div class="avatar">
+            <%= attachment_image_tag post_comment.user, :profile_image, :fill, 40, 40,  fallback: "no_image.jpg",size: "40x40" %>
+          </div>
+        </div>
+        <div class="comment-text">
+          <div class="comment-author clearfix">
+            <a href="#" class="link-author"><%= post_comment.user.name %></a>
+              <span class="comment-meta">
+                <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
+              </span>
+            </div>
+            <h4 class="comment-entry"><%= post_comment.comment %></h4>
+            <% if post_comment.user == current_user %>
+              <div>
+                <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, class: "glyphicon glyphicon-trash pull-right" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ol>

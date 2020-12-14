@@ -13,12 +13,10 @@
       </ul>
     </div>
   <% end %>
-  <!--<h4>タイトル</h4>-->
-  <%#= f.text_field :title %>
-　<!--複数画像投稿-->
+　<h4>画像投稿</h4>
   <%= f.attachment_field :post_images_images, multiple: true %>
-  <H4>本文</H4>
-  <%= f.text_area :body %>
+  <h4>本文</h4>
+  <%= f.text_area :body, rows:'5', class: "form-control" %>
   <h4>使用カラー</h4>
   <%= f.check_box :red %>赤
   <%= f.check_box :blue %>青
@@ -30,7 +28,9 @@
   <%= f.check_box :silver %>シルバー
   <%= f.check_box :black %>黒
   <%= f.check_box :clear %>クリア
-
+  <h4>タグ付け</h4>
+  <%= f.text_area :tag_name, class: "form-control",placeholder: "スペースを入力することで複数のタグを付けることができます。" %>
+  <br>
   <%= f.submit '投稿' %>
 <% end %>
 

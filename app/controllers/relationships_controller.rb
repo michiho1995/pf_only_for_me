@@ -1,5 +1,5 @@
 class RelationshipsController < ApplicationController
-  
+
   def follow
     current_user.follow(params[:following_id])
     redirect_to root_path

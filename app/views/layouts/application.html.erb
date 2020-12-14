@@ -19,8 +19,9 @@
             <% if user_signed_in? %>
               <li><%= link_to "新規投稿",  new_post_path(current_user.id), class:"glyphicon glyphicon-pencil" %></li>
               <li><%= link_to 'マイページ', user_path(current_user), class:"glyphicon glyphicon-user" %></li>
-              <li><%= link_to '検索', class:"glyphicon glyphicon-search" %></li>
-              <li><%= link_to 'タイムライン',  posts_path, class:"glyphicon glyphicon-th" %></li>
+              <li><%= link_to 'User', users_path, class:"glyphicon glyphicon-menu-hamburger" %></li>
+              <li><%= link_to '検索', search_index_path, class:"glyphicon glyphicon-search" %></li>
+              <li><%= link_to 'タイムライン',  posts_path, class:"glyphicon glyphicon-picture" %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"glyphicon glyphicon-log-out logout" %></li>
             <% else %>
               <li><%= link_to "Home", root_path, class:"glyphicon glyphicon-home home" %></li>

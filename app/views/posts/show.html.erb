@@ -7,7 +7,6 @@
         <!-- 投稿したuserの情報-->
         <%= attachment_image_tag @post.user, :profile_image, :fill, 40, 40,  fallback: "no_image.jpg",size: "40x40" %>
         <%= link_to @post.user.name, user_path(@post.user_id) %>
-
       </p>
     <br>
       <%= link_to "編集", edit_post_path(@post) %>
@@ -62,67 +61,40 @@
       </p>
       <br>
       <p>
-        <!--いいね機能-->
-        <% if @post.favorited_by?(current_user) %>
-          <%= link_to post_favorite_path(@post), method: :delete, remote: true do %>
-            <i class="glyphicon glyphicon-heart" style="color: red;"></i>
-            <%= @post.favorites.count %>
+        <h4>タグ:
+          <% @post_tags.each do |tag| %>
+            <%= link_to tag.tag_name, tag_posts_path(tag_id: tag.id) %>
+            <%= "(#{tag.posts.count})" %>
           <% end %>
-        <% else %>
-          <%= link_to post_favorite_path(@post), method: :post, remote: true do %>
-            <i class="glyphicon glyphicon-heart-empty"></i>
-            <%= @post.favorites.count %>
-          <% end %>
-        <% end %>
-        <!--コメント数-->
-        <i class="glyphicon glyphicon-comment"></i>
-        <a href="#comments"><%= @post.post_comments.count %></a>
-        <div class="comment-list bt style-2" id="comments">
-          <div class="float-wrapper">
-            <h3>コメント一覧</h3>
-          </div>
-          <ol>
-            <% @post.post_comments.each do |post_comment| %>
-              <li class="comment">
-                <div class="comment-body bb">
-                  <div class="comment-avatar">
-                    <div class="avatar">
-                      <%= attachment_image_tag post_comment.user, :profile_image, :fill, 40, 40,  fallback: "no_image.jpg",size: "40x40" %>
-                    </div>
-                  </div>
-                  <div class="comment-text">
-                    <div class="comment-author clearfix">
-                      <a href="#" class="link-author"><%= post_comment.user.name %></a>
-                      <span class="comment-meta">
-                        <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
-                      </span>
-                    </div>
-                    <h4 class="comment-entry"><%= post_comment.comment %></h4>
-                    <% if post_comment.user == current_user %>
-                      <div>
-                        <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, class: "glyphicon glyphicon-trash pull-right" %>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              </li>
-            <% end %>
-          </ol>
+        </h4>
+      </p>
+      <p>
+        <!--いいね機能 非同期-->
+        <div id='like-button_<%= @post.id %>'>
+          <%= render 'favorites/like-button', post: @post %>
+        </div>
+        <!--コメント数,コメント非同期-->
+        <p id='comments_area_<%= @post.id %>', class="glyphicon glyphicon-comment">
+          <%= render 'post_comments/index', post: @post %>
+        </p>
+      </p>
+      <p>
+        <h3>コメント一覧</h3>
+        <div id="each_comment_<%= @post.id %>">
+          <%= render 'post_comments/comments', post: @post %>
         </div>
       </p>
-      <br>
       <p>
         <!--コメント記入-->
-        <%= form_with(model:[@post, @post_comment], local: true) do |f| %>
+        <%= form_with(model:[@post, @post_comment]) do |f| %>
           <div class="row">
             <div class="col-sm-8">
               <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
             </div>
           </div>
-          <%= f.submit "送信する" %>
+          <%= f.submit "送信" %>
         <% end %>
       </p>
       <br>
-
-</div>
+  </div>
 </div>
