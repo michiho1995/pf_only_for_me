@@ -57,6 +57,9 @@
           <% if @post.clear == 1 %>
             クリア
           <% end %>
+          <% if @post.brown == 1 %>
+            ブラウン
+          <% end %>
         </h4>
       </p>
       <br>
@@ -64,7 +67,7 @@
         <h4>タグ:
           <% @post_tags.each do |tag| %>
             <%= link_to tag.tag_name, tag_posts_path(tag_id: tag.id) %>
-            <%= "(#{tag.posts.count})" %>
+            <%= tag.posts.count %>
           <% end %>
         </h4>
       </p>

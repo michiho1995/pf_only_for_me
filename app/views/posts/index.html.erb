@@ -11,10 +11,12 @@
         <p>
           <% if post.post_images.present? %>
             <% post.post_images.each do |image| %>
-              <%= attachment_image_tag image, :image, :fill, 200, 200 %>
+              <div class="col-md-4" >
+                <%= attachment_image_tag image, :image, :fill, 200, 200 %>
+              </div>
             <% end %>
-          <% else %>
-              <%= image_tag 'no_image.jpg', size: '200x200' %>
+          <%# else %>
+              <%#= image_tag 'no_image.jpg', size: '200x200' %>
           <% end %>
         </p>
         <p>
@@ -75,13 +77,16 @@
           <% if post.clear == 1 %>
           クリア
           <% end %>
+          <% if post.brown == 1 %>
+          ブラウン
+          <% end %>
         </p>
         <p>
           タグリスト：
           <% @tag_list.each do |list| %>
             <span>
               <%= link_to list.tag_name, tag_posts_path(tag_id: list.id) %>
-              <%= "(#{list.posts.count})" %>
+              <%= list.posts.count %>
             </span>
           <% end %>
         </P>

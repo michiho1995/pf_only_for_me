@@ -12,10 +12,10 @@
   <%#= f.text_field :title %>
   <!--複数画像投稿-->
   <%= f.attachment_field :post_images_images, multiple: true %>
-  
+
   <h4>本文</h4>
   <%= f.text_area :body %>
-  
+
   <h4>使用カラー</h4>
   <%= f.check_box :red %>赤
   <%= f.check_box :blue %>青
@@ -27,7 +27,8 @@
   <%= f.check_box :silver %>シルバー
   <%= f.check_box :black %>黒
   <%= f.check_box :clear %>クリア
-  
+  <%= f.check_box :brown %>ブラウン
+
   <%= f.submit '保存' %>
 <% end %>
 

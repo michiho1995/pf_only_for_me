@@ -10,6 +10,7 @@ class AddColorToPost < ActiveRecord::Migration[5.2]
     add_column :posts, :silver, :integer, default: 0
     add_column :posts, :black, :integer, default: 0
     add_column :posts, :clear, :integer, default: 0
+    add_column :posts, :brown, :integer, default: 0
     remove_column :posts, :color, :string
   end
 end

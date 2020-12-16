@@ -23,12 +23,12 @@ class Post < ApplicationRecord
     new_tags = sent_tags - current_tags  #新しいタグの取得
 
     old_tags.each do |old|
-      self.post_tags.delete PostTag.find_by(tag_name: old)  #古いタグの削除
+      self.tags.delete Tag.find_by(tag_name: old)  #古いタグの削除
     end
 
     new_tags.each do |new|
-      new_post_tag = PostTag.find_or_create_by(tag_name: new)  #新しいタグの保存
-      self.post_tags << new_post_tag
+      new_post_tag = Tag.find_or_create_by(tag_name: new)  #新しいタグの保存
+      self.tags << new_post_tag
     end
   end
 

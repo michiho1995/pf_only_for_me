@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2020_12_14_005303) do
     t.integer "silver", default: 0
     t.integer "black", default: 0
     t.integer "clear", default: 0
+    t.integer "brown", default: 0
   end
 
   create_table "relationships", force: :cascade do |t|

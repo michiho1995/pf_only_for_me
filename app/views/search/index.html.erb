@@ -18,6 +18,7 @@
           <%= f.check_box :silver %>シルバー
           <%= f.check_box :black %>黒
           <%= f.check_box :clear %>クリア
+          <%= f.check_box :brown %>ブラウン
           <%= f.submit "検索" %>
         <% end %>
       <% end %>
@@ -69,11 +70,12 @@
       <!--タグリスト-->
       <% @tag_list.each do |list| %>
         <span>
-          <%= link_to list.tag_name, tag_posts_path(post_tag_id: list.id) %>
+          <%= link_to list.tag_name, tag_posts_path(tag_id: list.id) %>
           <%= list.posts.count %>
         </span>
       <% end %>
       <br>
+
 
       <%= link_to '戻る', posts_path %>
     </div>
