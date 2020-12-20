@@ -1,3 +1,31 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.home_index {
+ background-color: #EAD9FF;
+ height: 100%;
+ width: 100%;
+}
+.c {
+  height: 700px;
+  width :100%;
+}
+
+.about {/*親div*/
+  position: relative;/*相対配置*/
+  }
+
+.about p {
+  position: absolute;/*絶対配置*/
+  color: white;/*文字は白に*/
+  top: 100px;
+  left: 20px;
+  }
+
+.about h3 {
+  position: absolute;/*絶対配置*/
+  color: white;/*文字は白に*/
+  top: 0;
+  left: 20px;
+  }

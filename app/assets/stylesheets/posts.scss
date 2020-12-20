@@ -1,3 +1,18 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.box30 {
+    margin: 2em 0;
+    background: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
+    text-align: center;
+}
+.box30 .box-user {
+    font-size: 1.2em;
+    background: #EEEEEE;
+    padding: 4px;
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}

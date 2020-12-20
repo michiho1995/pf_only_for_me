@@ -13,15 +13,15 @@ class SearchController < ApplicationController
     search = params[:search]
     word = params[:word]
     @tag_list = Tag.all  #こっちの投稿一覧表示ページでも全てのタグを表示するために、タグを全取得
-    @tag = Tag.find(params[:tag_id])  #クリックしたタグを取得
-    @posts = @tag.posts.all           #クリックしたタグに紐付けられた投稿を全て表示
+    @tag = Tag.find_by(id: params[:tag_id])  #クリックしたタグを取得
+    @posts = @tag.present? ? @tag.posts : []         #クリックしたタグに紐付けられた投稿を全て表示
 
     if @range == '1'
       @user = User.search(search,word)
     else
-      @post = Post.search(search,word)
+      @post = Post.search(search,word, params[:color])
     end
-　　redirect_back(fallback_location:root_path) #直前のビューページにリダイレクト
+    render template: "search/index" #直前のビューページにリダイレクト
   end
 
   def post_params

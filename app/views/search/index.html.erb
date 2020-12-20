@@ -4,21 +4,21 @@
       <h1>検索ページ</h1>
 
       <% if user_signed_in? %>
-        <%= form_with url: '/search/search', method: :get do |f| %>
+        <%= form_with url: '/search/search', method: :get, local: true do |f| %>
           <%= f.text_field :search %>
-          <%= f.select 'range' ,options_for_select([['---選択してください---', ''], ['User', '1'], ['Post', '2']]) %>
+          <%= f.select 'range' ,options_for_select([['名前', '1'], ['投稿', '2']]) %>
           <%= f.select 'search', options_for_select([["前方一致","forward_match"], ["後方一致","backward_match"], ["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
-          <%= f.check_box :red %>赤
-          <%= f.check_box :blue %>青
-          <%= f.check_box :green %>緑
-          <%= f.check_box :pink %>ピンク
-          <%= f.check_box :white %>白
-          <%= f.check_box :yellow %>黄
-          <%= f.check_box :gold %>ゴールド
-          <%= f.check_box :silver %>シルバー
-          <%= f.check_box :black %>黒
-          <%= f.check_box :clear %>クリア
-          <%= f.check_box :brown %>ブラウン
+          <%= f.check_box :red, name: 'color[red]' %>赤
+          <%= f.check_box :blue, name: 'color[blue]' %>青
+          <%= f.check_box :green, name: 'color[green]' %>緑
+          <%= f.check_box :pink, name: 'color[pink]' %>ピンク
+          <%= f.check_box :white, name: 'color[white]' %>白
+          <%= f.check_box :yellow, name: 'color[yellow]' %>黄
+          <%= f.check_box :gold, name: 'color[gold]' %>ゴールド
+          <%= f.check_box :silver, name: 'color[silver]' %>シルバー
+          <%= f.check_box :black, name: 'color[black]' %>黒
+          <%= f.check_box :clear, name: 'color[clear]' %>クリア
+          <%= f.check_box :brown, name: 'color[brown]' %>ブラウン
           <%= f.submit "検索" %>
         <% end %>
       <% end %>
@@ -39,7 +39,7 @@
          <tr>
           <td>
            <%= link_to(post.user) do %>
-           <%#= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %>
+           <%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %>
            <% end %>
           </td>
           <td><%= post.body %></td>

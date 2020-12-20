@@ -1,42 +1,49 @@
-<div class="container">
-  <div class="row">
-<h2>新規投稿</h2>
-
-<%= form_with model: @post, url:'/posts', local:true do |f| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @post.errors.count %>件のエラーが発生しました。</h2>
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<div class="other">
+  <div class="container">
+    <div class="row">
+      <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= @post.errors.count %>件のエラーが発生しました。</h2>
+          <ul>
+            <% @post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <h1>新規投稿</h1>
+      <div class="col-xs-7">
+        <br>
+        <%= form_with model: @post, url:'/posts', local:true do |f| %>
+        　<h4>画像投稿</h4>
+          <%= f.attachment_field :post_images_images, multiple: true %>
+          <h4>本文</h4>
+          <%= f.text_area :body, rows:'5', class: "form-control" %>
+          <h4>使用カラー</h4>
+          <%= f.check_box :red %>赤
+          <%= f.check_box :blue %>青
+          <%= f.check_box :green %>緑
+          <%= f.check_box :pink %>ピンク
+          <%= f.check_box :white %>白
+          <%= f.check_box :yellow %>黄
+          <%= f.check_box :gold %>ゴールド
+          <%= f.check_box :silver %>シルバー
+          <%= f.check_box :black %>黒
+          <%= f.check_box :clear %>クリア
+          <%= f.check_box :brown %>ブラウン
+          <h4>タグ付け</h4>
+          <%= f.text_area :tag_name, class: "form-control",placeholder: "スペースを入力することで複数のタグを付けることができます。" %>
+          <br>
+          <%= f.submit '投稿' %>
+          <br>
+          <br>
+          <br>
         <% end %>
-      </ul>
+      </div>
     </div>
-  <% end %>
-　<h4>画像投稿</h4>
-  <%= f.attachment_field :post_images_images, multiple: true %>
-  <h4>本文</h4>
-  <%= f.text_area :body, rows:'5', class: "form-control" %>
-  <h4>使用カラー</h4>
-  <%= f.check_box :red %>赤
-  <%= f.check_box :blue %>青
-  <%= f.check_box :green %>緑
-  <%= f.check_box :pink %>ピンク
-  <%= f.check_box :white %>白
-  <%= f.check_box :yellow %>黄
-  <%= f.check_box :gold %>ゴールド
-  <%= f.check_box :silver %>シルバー
-  <%= f.check_box :black %>黒
-  <%= f.check_box :clear %>クリア
-  <%= f.check_box :brown %>ブラウン
-  <h4>タグ付け</h4>
-  <%= f.text_area :tag_name, class: "form-control",placeholder: "スペースを入力することで複数のタグを付けることができます。" %>
-  <br>
-  <%= f.submit '投稿' %>
-<% end %>
+  </div>
+</div>
 
-</div>
-</div>
 <script>
   // alert('test')
 </script>

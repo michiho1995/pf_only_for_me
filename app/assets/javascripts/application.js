@@ -16,3 +16,15 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require_tree .
+
+//= require jquery
+//= require rails-ujs
+
+$(function() {
+    $('.slick').slick({
+        dots: true,
+        autoplay: true,
+        autoplaySpeed: 1000,
+        fade: true,
+    });
+});

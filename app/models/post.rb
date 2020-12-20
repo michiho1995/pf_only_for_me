@@ -32,9 +32,9 @@ class Post < ApplicationRecord
     end
   end
 
-  def self.search(search, word)
+  def self.search(search, word, color)
         if search == "forward_match"
-          @post = Post.where("body LIKE?","#{word}%").where("red, blue, green, pink, white, yellow, gold, silver, black, clear","")
+          @post = Post.where("body LIKE ?","#{word}%").where(color.permit!)
         elsif search == "backward_match"
           @post = Post.where("body LIKE?","%#{word}")
         elsif search == "perfect_match"
