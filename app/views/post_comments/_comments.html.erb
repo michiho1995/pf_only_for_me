@@ -17,7 +17,7 @@
             <h4 class="comment-entry"><%= post_comment.comment %></h4>
             <% if post_comment.user == current_user %>
               <div>
-                <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, class: "glyphicon glyphicon-trash pull-right" %>
+                <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), remote: true, method: :delete, class: "glyphicon glyphicon-trash pull-right" %>
               </div>
             <% end %>
           </div>

@@ -3,9 +3,9 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @tag_list = Tag.all              #ビューでタグ一覧を表示するために全取得。
-    @posts = Post.page(params[:page]).reverse_order
+    @posts = Post.page(params[:page])
     @post = current_user.posts.new   #ビューのform_withのmodelに使う。
+    @all_ranks = Post.find(Favorite.group(:post_id).order('count(post_id) desc').limit(3).pluck(:post_id))
   end
 
   def show
@@ -38,7 +38,6 @@ class PostsController < ApplicationController
 
     if  @post.save      #データをデータベースに保存するためのメソッド実行
         @post.save_tag(tag_list)
-          flash[:notice] = '投稿しました.'
         redirect_to post_path(@post.id)
     else
         render 'new'
@@ -49,7 +48,6 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:notice] = '更新しました'
       redirect_to post_path(@post.id)
     else
       render "edit"
@@ -80,7 +78,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :tag, :red, :blue, :green, :pink, :white, :yellow, :gold, :silver, :black, :clear, post_images_images: [] )
+    params.require(:post).permit(:title, :body, :tag, :bookmarks, :red, :blue, :green, :pink, :white, :yellow, :gold, :silver, :black, :clear, :brown, post_images_images: [] )
   end
 
   def user_params

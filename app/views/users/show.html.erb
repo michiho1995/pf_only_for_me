@@ -11,7 +11,7 @@
       <div class="col-xs-3">
         <table class="table">
           <tbody>
-            <%= attachment_image_tag @user, :profile_image, :fill, 60, 60,  fallback: "no_image.jpg",size: "100x100" %>
+            <%= attachment_image_tag @user, :profile_image, :fill, 200, 200,  fallback: "no_image.jpg",size: "200x200" %>
             <br>
               <tr>
                 <th class="profile-name">名前:      <%= @user.name %></th>
@@ -27,20 +27,19 @@
                <tr>
                 <th class="profile-follow_form"><%= render 'relationships/follow_form',user: @user %></th>
                </tr>
+               <tr>
+                 <!--編集ボタン-->
+                 <% if @user.id == current_user.id %>
+                   <th>
+                    <%= link_to edit_user_path(@user) do %>
+                      <span class= "col-xs-12 btn btn-default glyphicon glyphicon-cog"></span>
+                    <% end %>
+                   </th>
+                 <% end %>
+               </tr>
+               <br>
           </tbody>
         </table>
-        <br>
-        <br>
-        <!--編集ボタン-->
-        <div>
-          <% if @user.id == current_user.id %>
-             <p>
-              <%= link_to edit_user_path(@user) do %>
-                <span class= "col-xs-12 btn btn-default glyphicon glyphicon-cog"></span>
-              <% end %>
-             </p>
-           <% end %>
-        </div>
       </div>
 
       <div class="col-xs-9">
@@ -54,7 +53,7 @@
           </thead>
           <tbody>
             <% @posts.each do |post| %>
-                <tr>
+                <tr class="box">
                   <% post.post_images.each do |post_image| %>
                   <%= link_to attachment_image_tag(post_image, :image, :fill, 100, 100), post_path(post)%>
                   <% end %>
@@ -62,6 +61,7 @@
             <% end %>
           </tbody>
         </table>
+        <br>
         <% if @user.id == current_user.id %>
           <h3>ブックマーク一覧</h3>
           <table class="table table-hover table-inverse">
@@ -73,7 +73,7 @@
             </thead>
             <tbody>
               <% @bookmarks.each do |bookmark| %>
-                  <tr>
+                  <tr class="box">
                     <% bookmark.post.post_images.each do |post_image| %>
                      <%= link_to attachment_image_tag(post_image, :image, :fill, 100, 100), post_path(post_image)%>
                     <% end %>

@@ -1,112 +1,125 @@
 <div class="index">
   <div class="container">
-  <div class="row">
-    <h1>投稿一覧</h1>
-      <% @posts.each do |post| %>
-      <div class="col-md-4">
-        <div class="box30">
-            <!-- 投稿したuserの情報-->
-          <div class="box-user">
-            <%= attachment_image_tag post.user, :profile_image, :fill, 40, 40,  fallback: "no_image.jpg",size: "40x40" %>
-            <%= link_to post.user.name, user_path(post.user_id) %>
-          </div>
-          <p>
-            <% if post.post_images.present? %>
-                <div>
-                  <%= link_to post_path(post) do %>
-                    <%= attachment_image_tag post.post_images[0], :image, :fill, 200, 200 %>
-                  <% end %>
-                </div>
-            <% else %>
-                <%= image_tag 'no_image.jpg', size: '200x200' %>
-            <% end %>
-          </p>
-          <p>
-            <!--ログインしているuserは編集ページアイコン表示-->
-            <% if current_user.own_post?(post) %>
-              <div>
-                <%= link_to edit_post_path(post), id: :"button-edit-#{post.id}" do %>
-                  <span class="glyphicon glyphicon-edit"></span>
-                <% end %>
-              </div>
-            <% else %>
-              <!--ログインしてないuserはブックマーク-->
-              <div>
-              <% if post.bookmark_by?(current_user) %>
-                <%= link_to post_bookmark_path(post.id), method: :delete, id: :"js-bookmark-button-for-board-#{post.id}" do %>
-                  <span class="glyphicon glyphicon-star"></span>
-                <% end %>
-              <% else %>
-                <%= link_to post_bookmark_path(post.id), method: :post, id: :"js-bookmark-button-for-board-#{post.id}" do %>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                <% end %>
+    <div class="row">
+      <div class="col-xs-2">
+        <br>
+        <h3>ランキング</h3>
+        <% @all_ranks.each.with_index(1) do |rank, i| %>
+            <h3>
+              第<%= i %>位
+            </h3>
+              <%= rank.user.name %>
+              <%= link_to post_path(rank) do %>
+                <%= attachment_image_tag rank.post_images[0], :image, :fill, 70, 70 %>
               <% end %>
-              </div>
-            <% end %>
-          </p>
-          <p>
-            本文：<%= post.body %>
-          </p>
-          <p>
-            使用カラー:
-            <% if post.red == 1 %>
-            赤
-            <% end %>
-            <% if post.blue == 1 %>
-            青
-            <% end %>
-            <% if post.green == 1 %>
-            緑
-            <% end %>
-            <% if post.pink == 1 %>
-            ピンク
-            <% end %>
-            <% if post.white == 1 %>
-            白
-            <% end %>
-            <% if post.yellow == 1 %>
-            黄
-            <% end %>
-            <% if post.gold == 1 %>
-            ゴールド
-            <% end %>
-            <% if post.silver == 1 %>
-            シルバー
-            <% end %>
-            <% if post.black == 1 %>
-          　黒
-            <% end %>
-            <% if post.clear == 1 %>
-            クリア
-            <% end %>
-            <% if post.brown == 1 %>
-            ブラウン
-            <% end %>
-          </p>
-          <p>
-            タグリスト：
-            <% @tag_list.each do |list| %>
-              <span>
-                <%= link_to list.tag_name, tag_posts_path(tag_id: list.id) %>
-                <%= list.posts.count %>
-              </span>
-            <% end %>
-          </P>
-          <p>
-            <!--いいね機能 非同期-->
-              <div id='like-button_<%= post.id %>'>
-                <%= render 'favorites/like-button', post: post %>
-              </div>
-            <!--コメント数-->
-            <p id='comments_area_<%= @post.id %>', class="glyphicon glyphicon-comment">
-              <%= render 'post_comments/index', post: post %>
-            </p>
-          </p>
-        </div>
+        <% end %>
       </div>
-      <% end %>
-      <!--カミナリ機能-->
-    <%= paginate @posts %>
-　</div>
-</div>
+      <div class="col-xs-10">
+        <h1>投稿一覧</h1>
+        <% @posts.each do |post| %>
+          <div class="col-md-4">
+            <div class="box30">
+                <!-- 投稿したuserの情報-->
+              <div class="box-user">
+                <%= attachment_image_tag post.user, :profile_image, :fill, 40, 40,  fallback: "no_image.jpg",size: "40x40" %>
+                <%= link_to post.user.name, user_path(post.user_id) %>
+              </div>
+              <p>
+                <% if post.post_images.present? %>
+                    <div>
+                      <%= link_to post_path(post) do %>
+                        <%= attachment_image_tag post.post_images[0], :image, :fill, 200, 200 %>
+                      <% end %>
+                    </div>
+                <% else %>
+                    <%= image_tag 'no_image.jpg', size: '200x200' %>
+                <% end %>
+              </p>
+              <p>
+                <!--ログインしているuserは編集ページアイコン表示-->
+                <% if current_user.own_post?(post) %>
+                  <div>
+                    <%= link_to edit_post_path(post), id: :"button-edit-#{post.id}" do %>
+                      <span class="glyphicon glyphicon-edit"></span>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <!--ログインしてないuserはブックマーク-->
+                  <div>
+                  <% if post.bookmark_by?(current_user) %>
+                    <%= link_to post_bookmark_path(post.id), method: :delete, id: :"js-bookmark-button-for-board-#{post.id}" do %>
+                      <span class="glyphicon glyphicon-star"></span>
+                    <% end %>
+                  <% else %>
+                    <%= link_to post_bookmark_path(post.id), method: :post, id: :"js-bookmark-button-for-board-#{post.id}" do %>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                    <% end %>
+                  <% end %>
+                  </div>
+                <% end %>
+              </p>
+              <p>
+                本文：<%= post.body %>
+              </p>
+              <p>
+                使用カラー:
+                <% if post.red == 1 %>
+                赤
+                <% end %>
+                <% if post.blue == 1 %>
+                青
+                <% end %>
+                <% if post.green == 1 %>
+                緑
+                <% end %>
+                <% if post.pink == 1 %>
+                ピンク
+                <% end %>
+                <% if post.white == 1 %>
+                白
+                <% end %>
+                <% if post.yellow == 1 %>
+                黄
+                <% end %>
+                <% if post.gold == 1 %>
+                ゴールド
+                <% end %>
+                <% if post.silver == 1 %>
+                シルバー
+                <% end %>
+                <% if post.black == 1 %>
+              　黒
+                <% end %>
+                <% if post.clear == 1 %>
+                クリア
+                <% end %>
+                <% if post.brown == 1 %>
+                ブラウン
+                <% end %>
+              </p>
+              <p>
+                タグ:
+                  <% post.tags.each do |tag| %>
+                    <%= link_to tag.tag_name, tag_posts_path(tag_id: tag.id) %>
+                    <%= tag.posts.count %>
+                  <% end %>
+              </P>
+              <p>
+                <!--いいね機能 非同期-->
+                  <div id='like-button_<%= post.id %>'>
+                    <%= render 'favorites/like-button', post: post %>
+                  </div>
+                <!--コメント数-->
+                <p id='comments_area_<%= @post.id %>', class="glyphicon glyphicon-comment">
+                  <%= render 'post_comments/index', post: post %>
+                </p>
+              </p>
+            </div>
+          </div>
+        <% end %>
+        <!--カミナリ機能-->
+        <%= paginate @posts %>
+  　   </div>
+    </div>
+  </div>
 </div>

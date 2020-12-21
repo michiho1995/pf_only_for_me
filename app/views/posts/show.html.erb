@@ -9,10 +9,12 @@
           <%= attachment_image_tag @post.user, :profile_image, :fill, 50, 50,  fallback: "no_image.jpg",size: "40x40" %>
           <%= link_to @post.user.name, user_path(@post.user_id) %>
         </p>
-        <br>
-        <%= link_to "編集", edit_post_path(@post) %>
-        |
-        <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+        <% if @user.id == current_user.id %>
+          <br>
+          <%= link_to "編集", edit_post_path(@post) %>
+          |
+          <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+        <% end %>
         <br>
         <br>
         <!--画像表示-->
@@ -104,7 +106,19 @@
             <!--コメント記入-->
             <%= form_with(model:[@post, @post_comment]) do |f| %>
               <div class="row">
-                <div class="col-sm-8">
+                <% if @post_comment.errors.any? %>
+                  <div class="error_messages">
+                    <div id="error_explanation">
+                      <h2><%= @post_comment.errors.count %>件のエラーが発生しました。</h2>
+                      <ul>
+                        <% @post_comment.errors.full_messages.each do |message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="col-sx-8">
                   <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
                 </div>
               </div>

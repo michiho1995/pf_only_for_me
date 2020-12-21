@@ -1,14 +1,16 @@
-<div class="container">
+<div class="edit">
+  <div class="container">
   <div class="row">
-	  <div class="col-md-3">
-        <h2>編集画面</h2>
-
-        <% if @user.errors.any? %>
-              <h3><%= @user.errors.count %>error prohibited this book from being saved:</h3>
-            <% @user.errors.full_messages.each do |message| %>
-              <p><%= message %></p>
-            <% end %>
-        <% end %>
+    <h1>編集画面</h1>
+    <br>
+      <% if @user.errors.any? %>
+       <div class="error_messages">
+        <h3><%= @user.errors.count %>error prohibited this book from being saved:</h3>
+          <% @user.errors.full_messages.each do |message| %>
+            <p><%= message %></p>
+          <% end %>
+       </div>
+      <% end %>
         <br>
           <%= form_with model:@user, local:true do |f| %>
             <label >名前</label>
@@ -24,6 +26,9 @@
         <br>
               <%= f.submit "更新" %>
           <% end %>
+          <br>
+          <br>
     </div>
   </div>
+</div>
 </div>
