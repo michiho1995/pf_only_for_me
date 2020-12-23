@@ -1,6 +1,6 @@
 <div class="edit">
   <div class="container">
-    <div class="row">
+    <div class="post">
       <% if @post.errors.any? %>
         <div class="error_messages">
           <div id="error_explanation">
@@ -14,14 +14,14 @@
         </div>
       <% end %>
       <h1>編集画面</h1>
-      <div class="col-xs-7">
+      <div class="text-center">
       <%= form_with model:@post, method: :patch, local: true do |f| %>
         <h4>画像投稿</h4>
-        <%= f.attachment_field :post_images_images, multiple: true, placeholder: "投稿画像", id: 'post_img' %>
-        <%= attachment_image_tag @post.post_images[0], :image, :fill, 200, 200 %>
+        <%= attachment_image_tag @post.post_images[0], :image, :fill, 300, 300, fallback: 'no_image.jpg', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
+        <%= f.attachment_field :post_images_images, multiple: true, placeholder: "投稿画像", id: 'post_img', class: 'img_field', style: 'display:none;' %>
 
         <h4>本文</h4>
-        <%= f.text_area :body, rows:'5', class: "form-control" %>
+        <%= f.text_area :body, size: "60x5" %>
 
         <h4>使用カラー</h4>
         <%= f.check_box :red %>赤
@@ -37,7 +37,7 @@
         <%= f.check_box :brown %>ブラウン
           <br>
           <br>
-        <%= f.submit '保存' %>
+        <%= f.submit '保存',class: "btn btn-default" %>
       <% end %>
       <br>
       <%= link_to '詳細', post_path(@post.id) %>

@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    attributes:
+      post:
+        title: 名前
+        body: 本文
+    errors:
+      models:
+        post:
+          attributes:
+            body:
+              blank: が空になっています
+    errors:
+      messages:
+        record_invalid: バリデーションに失敗しました。 %{errors}

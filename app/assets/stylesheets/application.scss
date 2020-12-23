@@ -16,10 +16,16 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.flash {
+  color: #ffffff;
+  margin-top: 20px;
+}
+
  .body {
   background-image: image-url("hoge.jpg");
  }
 
+// エラー文
 .error_messages {
   color: red;
   padding: 0.5em 1em;
@@ -30,22 +36,74 @@
   border-radius: 10px;/*角の丸み*/
 }
 
+// 各ページの背景カラー
 .index {
   background-color: #FFEEFF;
+  width: 100%;
 }
 
 .edit {
   background-color: #F5FFFA;
+  width: 100%;
 }
 
 .show {
   background-color: #F0F8FF;
+  width: 100%;
 }
 
 .other {
   background-color: #D8BfD8;
+  width: 100%;
 }
 
 .in {
   background-color: #FFDBC9;
+  width: 100%;
+}
+
+// テキストを中心に
+.post {
+  text-align: center;
+}
+
+// 画面スライダー
+.img_prev:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transform: scale(1.01, 1.01);
+}
+
+#pageTop {
+  position: fixed;
+  bottom: 50px;
+  right: 30px;
+}
+
+#pageTop i {
+  padding-top: 10px
+}
+
+#pageTop a {
+  display: block;
+  z-index: 999;
+  padding: 8px 0 0 8px;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: #a52a2a;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+}
+
+#pageTop a:hover {
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.table {
+   margin: auto;
+   width: 50% !important;
 }

@@ -45,19 +45,13 @@
       <div class="col-xs-9">
         <h3>投稿一覧</h3>
         <table class="table table-hover table-inverse">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
           <tbody>
             <% @posts.each do |post| %>
-                <tr class="box">
+                <td>
                   <% post.post_images.each do |post_image| %>
-                  <%= link_to attachment_image_tag(post_image, :image, :fill, 100, 100), post_path(post)%>
+                  <%= link_to attachment_image_tag(post_image, :image, :fill, 200, 200), post_path(post)%>
                   <% end %>
-                </tr>
+                </td>
             <% end %>
           </tbody>
         </table>
@@ -65,19 +59,13 @@
         <% if @user.id == current_user.id %>
           <h3>ブックマーク一覧</h3>
           <table class="table table-hover table-inverse">
-            <thead>
-              <tr>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
             <tbody>
               <% @bookmarks.each do |bookmark| %>
-                  <tr class="box">
+                  <td>
                     <% bookmark.post.post_images.each do |post_image| %>
-                     <%= link_to attachment_image_tag(post_image, :image, :fill, 100, 100), post_path(post_image)%>
+                     <%= link_to attachment_image_tag(post_image, :image, :fill, 200, 200), post_path(post_image)%>
                     <% end %>
-                  </tr>
+                  </td>
               <% end %>
             </tbody>
           </table>

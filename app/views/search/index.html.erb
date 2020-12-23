@@ -11,7 +11,7 @@
             <%= f.select 'search', options_for_select([["前方一致","forward_match"], ["後方一致","backward_match"], ["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
           <br>
           <br>
-          タグ:
+          カラー:
           <%= f.check_box :red, name: 'color[red]' %>赤
           <%= f.check_box :blue, name: 'color[blue]' %>青
           <%= f.check_box :green, name: 'color[green]' %>緑
@@ -28,54 +28,55 @@
           <%= f.submit "検索" %>
           <% end %>
         <% end %>
+
+        <h4>タグリスト</h4>
+        <% @tag_list.each do |list| %>
+            <span>
+                <%= link_to list.tag_name, tag_posts_path(tag_id: list.id), class: 'btn btn-default btn-sm' %>
+                <%= list.posts.count %>
+            </span>
+        <% end %>
       </div>
     </div>
 
-  <div class="row">
-    <br>
-    <h3>検索結果</h3>
-    <table class="table table-hover table-inverse">
-      <thead>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% if @range == '2' %>
-          <% @post.each do |post| %>
-            <tr>
-              <th>
-                <%= link_to(post.user) do %>
-                  <%= attachment_image_tag(post.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %>
-                <% end %>
-              </th>
-              <th><%= post.body %></th>
-            </tr>
-          <% end %>
-        <% else %>
-          <% @user.each do |user| %>
-            <tr>
-              <th><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg") %></th>
-              <th><%= user.name%></th>
-              <th><%= link_to "詳細", user, class: "user_#{user.id}" %></th>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
-    <h4>タグ</h4>
-    <% @tag_list.each do |list| %>
-      <span>
-          <%= link_to list.tag_name, tag_posts_path(tag_id: list.id) %>
-          <%= list.posts.count %>
-      </span>
-    <% end %>
-    <br>
-    <br>
-      <%= link_to '戻る', posts_path %>
- </div>
-</div>
+    <div class="row">
+      <br>
+      <h3>検索結果</h3>
+        <table class="table table-hover table-inverse">
+          <tbody>
+            <% if @range == '2' %>
+              <% @post.each do |post| %>
+                <tr>
+                  <th>
+                      <% if post.post_images.present? %>
+                          <div>
+                            <%= link_to post_path(post) do %>
+                              <%= attachment_image_tag post.post_images[0], :image, :fill, 250, 250 %>
+                            <% end %>
+                          </div>
+                      <% else %>
+                          <%= image_tag 'no_image.jpg', size: '200x200' %>
+                      <% end %>
+                  </th>
+                </tr>
+              <% end %>
+            <% else %>
+              <% @user.each do |user| %>
+                <tr>
+                  <th><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg") %></th>
+                  <th><%= user.name%></th>
+                  <th><%= link_to "詳細", user, class: "user_#{user.id}" %></th>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+        <br>
+        <br>
+          <%= link_to '戻る', posts_path %>
+        <br>
+        <br>
+    </div>
 
+  </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="edit">
   <div class="container">
-  <div class="row">
+  <div class="post">
     <h1>編集画面</h1>
     <br>
       <% if @user.errors.any? %>
@@ -17,8 +17,8 @@
           <%= f.text_field :name, autofocus: true%>
         <br>
         <br>
-            <!--<label>Image</label>-->
-          <%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+          <%= f.file_field :profile_image, class: 'img_field', style: 'display:none;' %>
+          <%= attachment_image_tag @user, :profile_image, :fill, 200, 200, fallback: 'no_image.jpg', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
         <br>
             <label for="user_introduction">自己紹介分</label>
               <%= f.text_area :introduction %>

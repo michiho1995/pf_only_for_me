@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_relationships
   has_many :tag_maps, dependent: :destroy #タグ一覧
   has_many :tags, through: :tag_maps  #タグ機能
-  
+
   attachment :profile_image
   attachment :image
 
@@ -26,7 +26,7 @@ class User < ApplicationRecord
   def own_post?(post)
     self.id == post.user_id
   end
-  
+
   def following?(other_user)
     following_relationships.find_by(following_id: other_user.id)
   end
@@ -38,7 +38,7 @@ class User < ApplicationRecord
   def unfollow!(other_user)
     following_relationships.find_by(following_id: other_user.id).destroy
   end
-  
+
   def self.search(search,word)
       if search == "forward_match"
         @user = User.where("name LIKE?","#{word}%")
@@ -51,6 +51,13 @@ class User < ApplicationRecord
       else
         @user = User.all
       end
+  end
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com', name: 'guest') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      # user.confirmed_at = Time.now  # Confirmable を使用している場合は必要
+    end
   end
 
 end

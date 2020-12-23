@@ -90,3 +90,5 @@ ja:
     unlocks:
       new:
         resend_unlock_instructions: "アカウントの凍結解除方法を再送する"
+      messages:
+        record_invalid: "バリデーションに失敗しました。 %{errors}"

@@ -1,6 +1,7 @@
 <div class="index">
   <div class="container">
     <div class="row">
+
       <div class="col-xs-2">
         <br>
         <h3>ランキング</h3>
@@ -28,7 +29,7 @@
                 <% if post.post_images.present? %>
                     <div>
                       <%= link_to post_path(post) do %>
-                        <%= attachment_image_tag post.post_images[0], :image, :fill, 200, 200 %>
+                        <%= attachment_image_tag post.post_images[0], :image, :fill, 250, 250 %>
                       <% end %>
                     </div>
                 <% else %>
@@ -36,83 +37,13 @@
                 <% end %>
               </p>
               <p>
-                <!--ログインしているuserは編集ページアイコン表示-->
-                <% if current_user.own_post?(post) %>
-                  <div>
-                    <%= link_to edit_post_path(post), id: :"button-edit-#{post.id}" do %>
-                      <span class="glyphicon glyphicon-edit"></span>
-                    <% end %>
-                  </div>
-                <% else %>
-                  <!--ログインしてないuserはブックマーク-->
-                  <div>
-                  <% if post.bookmark_by?(current_user) %>
-                    <%= link_to post_bookmark_path(post.id), method: :delete, id: :"js-bookmark-button-for-board-#{post.id}" do %>
-                      <span class="glyphicon glyphicon-star"></span>
-                    <% end %>
-                  <% else %>
-                    <%= link_to post_bookmark_path(post.id), method: :post, id: :"js-bookmark-button-for-board-#{post.id}" do %>
-                      <span class="glyphicon glyphicon-star-empty"></span>
-                    <% end %>
-                  <% end %>
-                  </div>
-                <% end %>
+                <%= post.body %>
               </p>
-              <p>
-                本文：<%= post.body %>
-              </p>
-              <p>
-                使用カラー:
-                <% if post.red == 1 %>
-                赤
-                <% end %>
-                <% if post.blue == 1 %>
-                青
-                <% end %>
-                <% if post.green == 1 %>
-                緑
-                <% end %>
-                <% if post.pink == 1 %>
-                ピンク
-                <% end %>
-                <% if post.white == 1 %>
-                白
-                <% end %>
-                <% if post.yellow == 1 %>
-                黄
-                <% end %>
-                <% if post.gold == 1 %>
-                ゴールド
-                <% end %>
-                <% if post.silver == 1 %>
-                シルバー
-                <% end %>
-                <% if post.black == 1 %>
-              　黒
-                <% end %>
-                <% if post.clear == 1 %>
-                クリア
-                <% end %>
-                <% if post.brown == 1 %>
-                ブラウン
-                <% end %>
-              </p>
-              <p>
-                タグ:
-                  <% post.tags.each do |tag| %>
-                    <%= link_to tag.tag_name, tag_posts_path(tag_id: tag.id) %>
-                    <%= tag.posts.count %>
-                  <% end %>
-              </P>
               <p>
                 <!--いいね機能 非同期-->
                   <div id='like-button_<%= post.id %>'>
                     <%= render 'favorites/like-button', post: post %>
                   </div>
-                <!--コメント数-->
-                <p id='comments_area_<%= @post.id %>', class="glyphicon glyphicon-comment">
-                  <%= render 'post_comments/index', post: post %>
-                </p>
               </p>
             </div>
           </div>
