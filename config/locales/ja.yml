@@ -10,6 +10,5 @@ ja:
           attributes:
             body:
               blank: が空になっています
-    errors:
       messages:
         record_invalid: バリデーションに失敗しました。 %{errors}
