@@ -18,7 +18,7 @@
         <br>
         <br>
           <%= attachment_image_tag @user, :profile_image, :fill, 200, 200, fallback: 'no_image.jpg', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
-          <%= f.file_field :profile_image, multiple: true, class: 'img_field', style: 'display:none;' %>
+          <%= f.file_field :profile_image, class: 'img_field', style: 'display:none;' %>
         <br>
             <label for="user_introduction">自己紹介文</label>
               <%= f.text_area :introduction %>

@@ -10,7 +10,7 @@
         </p>
         <% if @user.id == current_user.id %>
           <br>
-          <%= link_to "編集", edit_post_path(@post) %>
+          <%= link_to "編集", edit_post_path(@post), data: {"turbolinks" => false} %>
           |
           <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" %>
         <% end %>
@@ -87,7 +87,7 @@
                 <!--ログインしているuserは編集ページアイコン表示-->
                 <% if current_user.own_post?(@post) %>
                   <div>
-                    <%= link_to edit_post_path(@post), id: :"button-edit-#{@post.id}" do %>
+                    <%= link_to edit_post_path(@post), id: :"button-edit-#{@post.id}", data: {"turbolinks" => false} do %>
                       <span class="glyphicon glyphicon-edit"></span>
                     <% end %>
                   </div>
