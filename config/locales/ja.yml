@@ -4,11 +4,14 @@ ja:
       post:
         title: 名前
         body: 本文
+        images: 画像
     errors:
       models:
         post:
           attributes:
             body:
               blank: が空になっています
+            post_images:
+              invalid: が無効です
       messages:
         record_invalid: バリデーションに失敗しました。 %{errors}

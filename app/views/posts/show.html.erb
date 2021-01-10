@@ -84,6 +84,10 @@
           </h4>
         </p>
         <p>
+          <!--API画像認識でカラーを表示-->
+        <% @rgbs.each do |rgb| %>
+          <div style=<%= "background:rgb(#{rgb['red']},#{rgb['green']},#{rgb['blue']});width:100px;height:100px;display:inline-block;" %>></div>
+        <% end %>
                 <!--ログインしているuserは編集ページアイコン表示-->
                 <% if current_user.own_post?(@post) %>
                   <div>

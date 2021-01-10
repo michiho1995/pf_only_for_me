@@ -13,6 +13,16 @@ class PostsController < ApplicationController
     @post_tags = @post.tags         #そのクリックした投稿に紐付けられているタグの取得。
     @post_comment = PostComment.new
     @user = User.find(@post.user_id)
+
+    @rgbs = Rgb.where(post_image_id: @post.post_image_ids)
+    #@rgbs = Rgb.all
+    #@rgbs = @post.post_images.rgbs
+    # @rgbs = []
+    # @post.post_images.each do |image|
+    #   if image.rgb.present?
+    #     @rgbs << image.rgb
+    #   end
+    # end
   end
 
   def new
@@ -32,11 +42,21 @@ class PostsController < ApplicationController
   def create
     # @post = Post.new(post_params)   #データを新規登録するためのインスタンス作成
     #   @post.user_id = current_user.id
+
     @post = current_user.posts.new(post_params)
     @post.user_id = current_user.id
     tag_list = params[:post][:tag_name].split(nil)  #送信されてきたタグの取得  #.split(nil)：送信されてきた値を、スペースで区切って配列化
 
     if  @post.save      #データをデータベースに保存するためのメソッド実行
+
+      @post.post_images.each do |post_image|
+
+        Vision.get_image_data(post_image.image).each do |rgb|
+            Rgb.new(rgb.merge({post_image_id: post_image.id})).save
+            #post_image.rgb.new(rgb).save
+        end
+      end
+
         @post.save_tag(tag_list)
         redirect_to post_path(@post.id)
     else
@@ -78,7 +98,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :tag, :bookmarks, :red, :blue, :green, :pink, :white, :yellow, :gold, :silver, :black, :clear, :brown, post_images_images: [] )
+    params.require(:post).permit(:title, :body, :tag, :red, :blue, :green, :pink, :white, :yellow, :gold, :silver, :black, :clear, :brown, post_images_images: [] )
   end
 
   def user_params
