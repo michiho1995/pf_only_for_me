@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
   root 'home#index'
   get 'home/about'
 
@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   end
 
   devise_scope :user do
-    get 'sign_in', to: 'users/sessions#new'
-    get 'sign_out', to: 'users/sessions#destroy'
+    # get 'sign_in', to: 'users/sessions#new'
+    # get 'sign_out', to: 'users/sessions#destroy'
     post 'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
 
